@@ -1,0 +1,27 @@
+{
+  "name": "Scrapper_App",
+  "version": "1.0.0",
+  "description": "Scraps data from a website (TBD) and store and renders data to and from MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmryan711/ScrapperApp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dmryan711/ScrapperApp/issues"
+  },
+  "homepage": "https://github.com/dmryan711/ScrapperApp#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.0",
+    "express-handlebars": "^3.1.0",
+    "mongoose": "^5.5.9"
+  }
+}
