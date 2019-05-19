@@ -70,10 +70,20 @@ app.get("/", function(req, res) {
         }
       });
     });
+
+    db.Article.find({})
+    .then(function(articles) {
+      // If any Libraries are found, send them to the client
+      res.render("index",{content:articles});
+    })
+    .catch(function(err) {
+      // If an error occurs, send it back to the client
+      res.json(err);
+    });
     
     
     // Send a "Scrape Complete" message to the browser
-    res.render('index',article);
+    //res.render('index',article);
   });
 
 
