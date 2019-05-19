@@ -2,6 +2,8 @@ const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const exphbs = require("express-handlebars");
+const axios = require("axios");
+const cheerio = require("cheerio");
 
 const PORT = 8080;
 
@@ -32,28 +34,52 @@ let article = {
     headline:"Test Article"
 }
 
-app.get("/",function(req,res){
-    res.render('index',article);
 
-    // db.articles.create({ 
-    //     headline: "headline 1",
-    //     summary:"Salt",
-    //     url: "Care"
+app.get("/", function(req, res) {
+    // Make a request via axios for the news section of `ycombinator`
+    axios.get("https://news.ycombinator.com/").then(function(response) {
+      // Load the html body from axios into cheerio
+      var $ = cheerio.load(response.data);
+      // For each element with a "title" class
+      $('span.comhead').each(function(i, element){
+        var a = $(this).prev();
+        var title = a.text();
+        var url = a.attr('href');
+        var subtext = a.parent().parent().next().children('.subtext').children();
+        var username = $(subtext).eq(1).text();
+        
+        // If this found element had both a title and a link
+        if (title && url  && username) {
+          // Insert the data in the scrapedData db
+                db.Article.create({ 
+                    headline: title,
+                    url:url,
+                    author:username
+                })
+            .then(function(article) {
+            // If saved successfully, print the new Library document to the console
+                console.log(article);
+                
+            })
+            .catch(function(err) {
+                // If an error occurs, print it to the console
+                console.log(err.message);
+             });
+          
+          
+        }
+      });
+    });
     
-    // })
-    // .then(function(article) {
-    //   // If saved successfully, print the new Library document to the console
-    //   console.log(article);
-    //   res.render('index',article);
-    // })
-    // .catch(function(err) {
-    //   // If an error occurs, print it to the console
-    //   console.log(err.message);
-    //   res.json({testDocCreated:"false", error:err.message});
-    // });  
     
-    
-});
+    // Send a "Scrape Complete" message to the browser
+    res.render('index',article);
+  });
+
+
+
+
+
 // Start the server
 app.listen(PORT, function() {
     console.log("App running on port " + PORT + "!");
