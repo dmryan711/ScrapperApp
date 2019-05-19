@@ -7,9 +7,13 @@
     <a class="btn btn-primary btn-lg" href="#" role="button">Scrape More Articles</a>
   </p>
 </div>
+  {{#each content}}
+  <div class="card mb-5 " style="width: auto;">
+  <div class="card-body">
+    <h5 class="card-title">{{this.headline}}</h5>
+    <p class="card-text">Posted By: {{this.author}}</p>
+    <a href="{{this.url}}" class="btn btn-primary">See Full Article</a>
+  </div>
+</div>  
+  {{/each}}
 
-<h1>WOOF WOOF</h1>
-<ul class="dog">
-<p>Type: {{this.headline}}</p>
-
-</ul>
