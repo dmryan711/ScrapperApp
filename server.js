@@ -1,8 +1,9 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const exphbs = require("express-handlebars");
 
-const PORT = 3000;
+const PORT = 8080;
 
 // // Require all models
 const db = require("./models");
@@ -11,6 +12,8 @@ const db = require("./models");
 const app = express();
 
 // Configure middleware
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
 
 // Use morgan logger for logging requests
 app.use(logger("dev"));
@@ -25,25 +28,29 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
+let article = {
+    headline:"Test Article"
+}
 
 app.get("/",function(req,res){
+    res.render('index',article);
 
-    db.articles.create({ 
-        headline: "headline 1",
-        summary:"Salt",
-        url: "Care"
+    // db.articles.create({ 
+    //     headline: "headline 1",
+    //     summary:"Salt",
+    //     url: "Care"
     
-    })
-    .then(function(article) {
-      // If saved successfully, print the new Library document to the console
-      console.log(article);
-      res.json({testDocCreated:"true"});
-    })
-    .catch(function(err) {
-      // If an error occurs, print it to the console
-      console.log(err.message);
-      res.json({testDocCreated:"false", error:err.message});
-    });  
+    // })
+    // .then(function(article) {
+    //   // If saved successfully, print the new Library document to the console
+    //   console.log(article);
+    //   res.render('index',article);
+    // })
+    // .catch(function(err) {
+    //   // If an error occurs, print it to the console
+    //   console.log(err.message);
+    //   res.json({testDocCreated:"false", error:err.message});
+    // });  
     
     
 });
