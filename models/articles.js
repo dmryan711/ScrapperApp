@@ -6,15 +6,15 @@ const ArticleSchema = new Schema({
     headline: {
         type:String,
         required:[true, "A headline is required for an article document"],
-        unique:true
-    },
-    summary: {
-        type:String,
-        required:[true,"A summary is required for an article document"]
+        //unique:true
     },
     url: {
         type:String,
         required:[true,"A URL is required for an article document"]
+    },
+    author:{
+        type: String,
+        required:[true,"An author is required for an article document"]
     }
 });
 
