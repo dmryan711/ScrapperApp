@@ -5,7 +5,8 @@ const Schema = mongoose.Schema;
 const ArticleSchema = new Schema({
     headline: {
         type:String,
-        required:[true, "A headline is required for an article document"]
+        required:[true, "A headline is required for an article document"],
+        unique:true
     },
     summary: {
         type:String,
