@@ -7,12 +7,29 @@
     <a class="btn btn-primary btn-lg" href="#" role="button">Scrape More Articles</a>
   </p>
 </div>
+
   {{#each content}}
   <div class="card mb-5 " style="width: auto;">
   <div class="card-body">
     <h5 class="card-title">{{this.headline}}</h5>
     <p class="card-text">Posted By: {{this.author}}</p>
+    <p>{{this.id}}</p>
     <a href="{{this.url}}" class="btn btn-primary">See Full Article</a>
+<ul class="collapsible">
+    <li>
+        <div class="collapsible-header">Comments</div>
+        <div class="collapsible-body">
+            <p>Lorem ipsum dolor sit amet.</p>
+            <form>
+                <div class="form-group">
+                    <label for="article-{{this.id}}">Enter Your Comment Here</label>
+                    <input type="text" class="form-control" id="article-{{this.id}}" placeholder="This article is awesome...">
+                </div>
+                <button type="submit" class="btn btn-primary submit-comment" id="{{this.id}}">Submit Comment</button>
+            </form>
+        </div>
+    </li>
+</ul>
   </div>
 </div>  
   {{/each}}
