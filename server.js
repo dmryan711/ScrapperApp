@@ -30,11 +30,25 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
-let article = {
-    headline:"Test Article"
-}
 
-
+app.post("/addComment",function(req,res){
+    console.log(req.body);
+    res.sendStatus(200);
+    db.Comment.create({ 
+        comment:req.body.commentText,
+        article: req.body.articleId
+    })
+    .then(function(comment) {
+        // If saved successfully, print the new Library document to the console
+        console.log(comment._id);
+        return db.Article.findOneAndUpdate({_id:req.body.articleId}, { $push: { comments:comment._id }}, { new: true });
+        
+    })
+    .catch(function(err) {
+         // If an error occurs, print it to the console
+        console.log(err.message);
+    });
+});
 app.get("/", function(req, res) {
     // Make a request via axios for the news section of `ycombinator`
     axios.get("https://news.ycombinator.com/").then(function(response) {
@@ -72,14 +86,18 @@ app.get("/", function(req, res) {
     });
 
     db.Article.find({})
+    .populate("comments")
     .then(function(articles) {
-      // If any Libraries are found, send them to the client
+      // If any Libraries are found, send them to the client with any associated Books
+      
+      console.log(articles[0].comments[0].comment);
       res.render("index",{content:articles});
     })
     .catch(function(err) {
       // If an error occurs, send it back to the client
       res.json(err);
     });
+   
     
     
     // Send a "Scrape Complete" message to the browser
