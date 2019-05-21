@@ -15,7 +15,13 @@ const ArticleSchema = new Schema({
     author:{
         type: String,
         required:[true,"An author is required for an article document"]
-    }
+    },
+    comments: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "Comment"
+        } 
+      ]
 });
 
 const Article = mongoose.model("Article", ArticleSchema);

@@ -1,8 +1,7 @@
 <div class="jumbotron">
   <h1 class="display-4">Hacker News Scrapper</h1>
-  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <p class="lead">This is a simple web app that uses handlebars, express, and mongoose to scrape data Users can also post comments.</p>
   <hr class="my-4">
-  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
   <p class="lead">
     <a class="btn btn-primary btn-lg" href="#" role="button">Scrape More Articles</a>
   </p>
@@ -19,7 +18,9 @@
     <li>
         <div class="collapsible-header">Comments</div>
         <div class="collapsible-body">
-            <p>Lorem ipsum dolor sit amet.</p>
+            {{#each this.comments}}
+            <p>{{this.comment}}</p>
+            {{/each}}
             <form>
                 <div class="form-group">
                     <label for="article-{{this.id}}">Enter Your Comment Here</label>
