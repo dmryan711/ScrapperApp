@@ -95,7 +95,7 @@ app.get("/", function(req, res) {
     })
     .catch(function(err) {
       // If an error occurs, send it back to the client
-      res.json(err);
+      res.json(err.message);
     });
    
     
