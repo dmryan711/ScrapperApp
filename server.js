@@ -5,7 +5,7 @@ const exphbs = require("express-handlebars");
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 // // Require all models
 const db = require("./models");
