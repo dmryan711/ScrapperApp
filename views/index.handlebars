@@ -12,7 +12,6 @@
   <div class="card-body">
     <h5 class="card-title">{{this.headline}}</h5>
     <p class="card-text">Posted By: {{this.author}}</p>
-    <p>{{this.id}}</p>
     <a href="{{this.url}}" class="btn btn-primary">See Full Article</a>
 <ul class="collapsible">
     <li>
@@ -21,7 +20,7 @@
             {{#each this.comments}}
             <p>{{this.comment}}</p>
             {{/each}}
-            <form>
+            <form id="comment-form">
                 <div class="form-group">
                     <label for="article-{{this.id}}">Enter Your Comment Here</label>
                     <input type="text" class="form-control" id="article-{{this.id}}" placeholder="This article is awesome...">

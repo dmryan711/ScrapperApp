@@ -21,6 +21,14 @@ $("body").on("click",".submit-comment",function(e){
             data: data
            
           });
+           
+
+           //add the comment locally to the list
+        console.log($(this).parent().parent());
+        $( "<p>"+commentText+"</p>" ).insertBefore("#comment-form");
+        //set comment text to blank
+        $(this).prev().children(".form-control").val("");
+
 
     }
   
