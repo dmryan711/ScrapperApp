@@ -31,6 +31,7 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 
+
 app.post("/addComment",function(req,res){
     console.log(req.body);
     res.sendStatus(200);
@@ -61,6 +62,7 @@ app.get("/", function(req, res) {
         var url = a.attr('href');
         var subtext = a.parent().parent().next().children('.subtext').children();
         var username = $(subtext).eq(1).text();
+         
         
         // If this found element had both a title and a link
         if (title && url  && username) {
