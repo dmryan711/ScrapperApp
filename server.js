@@ -5,7 +5,7 @@ const exphbs = require("express-handlebars");
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 // // Require all models
 const db = require("./models");
@@ -29,6 +29,7 @@ app.use(express.static("public"));
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+
 
 
 app.post("/addComment",function(req,res){
@@ -61,6 +62,7 @@ app.get("/", function(req, res) {
         var url = a.attr('href');
         var subtext = a.parent().parent().next().children('.subtext').children();
         var username = $(subtext).eq(1).text();
+         
         
         // If this found element had both a title and a link
         if (title && url  && username) {
@@ -95,7 +97,7 @@ app.get("/", function(req, res) {
     })
     .catch(function(err) {
       // If an error occurs, send it back to the client
-      res.json(err);
+      res.json(err.message);
     });
    
     

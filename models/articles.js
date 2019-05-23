@@ -6,7 +6,7 @@ const ArticleSchema = new Schema({
     headline: {
         type:String,
         required:[true, "A headline is required for an article document"],
-        //unique:true
+        unique:true
     },
     url: {
         type:String,
